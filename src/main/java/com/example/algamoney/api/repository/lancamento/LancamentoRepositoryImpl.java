@@ -56,6 +56,9 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery{
 											root.get(Lancamento_.valor), root.get(Lancamento_.tipo),
 											root.get(Lancamento_.categoria).get(Categoria_.nome),
 											root.get(Lancamento_.pessoa).get(Pessoa_.nome)));
+
+		Predicate[] predicates = criarRestricoes(lancamentoFilter, builder, root);
+		criteria.where(predicates);
 		
 		TypedQuery<ResumoLancamento> query = manager.createQuery(criteria);
 		
